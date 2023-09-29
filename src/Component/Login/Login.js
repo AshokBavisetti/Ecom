@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
-
+import { useNavigate } from 'react-router-dom';
+import axios from "axios"
 
 function Login() {
 
@@ -8,13 +9,20 @@ function Login() {
   })
 
   const {username,password}=data
+const navigate = useNavigate();
+
 
   const changeHandler=e=>{
     setData({...data, [e.target.name]:[e.target.value]})
   }
   const submitHandler=e=>{
     e.preventDefault();
-    console.log(data)
+    axios.post("http://localhost:4000/posts",data)
+    .then((res)=>console.log(res))
+    .catch((err)=>console.log(err))
+    alert("Login successfully")
+navigate('/home');
+
   }
 
   
